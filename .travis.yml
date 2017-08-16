@@ -1,0 +1,35 @@
+language: r
+dist: trusty
+sudo: required
+cache: packages
+warnings_are_errors: true
+
+r:
+  - release #3.4.0
+  #- devel
+
+os:
+  - linux
+  - osx
+
+latex: true
+
+env:
+  global:
+    - _R_CHECK_FORCE_SUGGESTS_=false
+
+script:
+  - |
+    travis_wait R CMD build .
+    travis_wait 40 R CMD check theseus*tar.gz
+after_success:
+  - travis_wait 40 tar -C .. -xf $PKG_TARBALL
+  - travis_wait 40 Rscript -e 'covr::codecov()'
+
+after_failure:
+  - cat theseus.Rcheck/00*
+
+notifications:
+  email:
+    on_success: never
+    on_failure: change

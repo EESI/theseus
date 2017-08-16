@@ -1,0 +1,29 @@
+Package: theseus
+Type: Package
+Title: It does stuff
+Version: 0.0.900
+Authors@R: c(
+    person("Jake", "Price", email = "jrp355@drexel.edu", role = c("cre","aut")),
+    person("Stephen", "Woloszynek", email = "sw424@drexel.edu", role = c("aut"))
+    )
+Description: More about what it does (maybe more than one line)
+    Use four spaces when indenting paragraphs within the Description.
+License: MIT + file LICENSE
+URL: http://github.com/sw1/theseus
+BugReports: http://github.com/sw1/theseus/issues
+Encoding: UTF-8
+LazyData: TRUE
+Depends:
+    R (>= 3.3.0),
+    phyloseq (>= 1.20.0)
+Imports:
+    akima (>= 0.6.2),
+    tidyverse (>= 1.1.1),
+    ggplot2 (>= 2.2.1),
+    vegan (>= 2.3.5)
+Suggests: covr,
+    testthat,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+RoxygenNote: 6.0.1

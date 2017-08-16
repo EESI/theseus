@@ -1,0 +1,35 @@
+---
+output: github_document
+---
+  
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+  
+```{r,echo=FALSE}
+knitr::opts_chunk$set(collapse=TRUE,comment='#>',fig.path='README-')
+```
+
+[![Travis-CI Build Status](https://travis-ci.org/sw1/theseus.svg?branch=master)](https://travis-ci.org/sw1/theseus)
+[![codecov](https://codecov.io/gh/sw1/theseus/branch/master/graph/badge.svg?token=pmjXMfuHrw)](https://codecov.io/gh/sw1/theseus)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/theseus)](https://cran.r-project.org/package=theseus)
+
+
+## Overview
+
+theseus
+
+## Relevant Software and Literature
+
+
+## Installation
+
+```{r,eval=FALSE}
+# To install the developmental version via Github:
+# install.packages('devtools')
+devtools::install_github('sw1/theseus',build_vignettes=TRUE)
+```
+
+## Development
+
+For future feature requests or suggestions, request an issue:
+  
+  https://github.com/sw1/theseus/issues
