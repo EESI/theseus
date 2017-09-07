@@ -20,8 +20,10 @@ Imports:
     akima (>= 0.6.2),
     tidyverse (>= 1.1.1),
     ggplot2 (>= 2.2.1),
+    ShortRead (>= 1.34.0),
     vegan (>= 2.3.5)
-Suggests: covr,
+Suggests: 
+    covr,
     testthat,
     knitr,
     rmarkdown
