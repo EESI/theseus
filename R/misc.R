@@ -7,13 +7,13 @@ get_top_taxa <- function(PS,tax_level='Phylum',tax_n=7){
 
   TAX <- tax_table(PS)@.Data %>%
     data.frame(stringsAsFactors = FALSE) %>%
-    mutate(id=rownames(.))
+    dplyr::mutate(id=rownames(.))
 
   top <- data.frame(abundance=colSums(OTU),id=colnames(OTU),stringsAsFactors=FALSE) %>%
-    left_join(TAX,by='id') %>%
-    group_by_(tax_level) %>%
-    summarize(abundance=sum(abundance)) %>%
-    arrange(desc(abundance)) %>%
+    dplyr::left_join(TAX,by='id') %>%
+    dplyr::group_by_(tax_level) %>%
+    dplyr::summarize(abundance=sum(abundance)) %>%
+    dplyr::arrange(desc(abundance)) %>%
     as.data.frame() %>%
     .[1:tax_n,1]
 

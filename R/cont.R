@@ -59,7 +59,7 @@ cont <- function(x,y,z,data,method=c('linear','spline','loess'),...){
                        linear=linear)
 
     df <- with(S,data.frame(x=x,y=rep(y,each=ncol(z)),z=matrix(z))) %>%
-      drop_na()
+      tidyr::drop_na()
 
   }
 

@@ -30,7 +30,7 @@ surf <- function(PS,covariates){
   plot.new()
 
   OTU <- PS@otu_table@.Data
-  SAMP <- suppressWarnings(as_tibble(PS@sam_data))
+  SAMP <- suppressWarnings(dplyr::as_tibble(PS@sam_data))
 
   if (!all(covariates %in% colnames(SAMP)))
     stop('Some covaraites not found in sample data!')
@@ -50,11 +50,11 @@ surf <- function(PS,covariates){
     O <- vegan::ordisurf(form,SAMP,plot=FALSE)
 
     df1 <- with(O,data.frame(x=grid$x,y=rep(grid$y,each=ncol(grid$z)),z=matrix(grid$z))) %>%
-      filter(!is.na(z)) %>%
-      mutate(covariate=k)
+      dplyr::filter(!is.na(z)) %>%
+      dplyr::mutate(covariate=k)
 
     df2 <- with(O,data.frame(x=model$x1,y=model$x2,z=NA)) %>%
-      mutate(covariate=k)
+      dplyr::mutate(covariate=k)
 
     list(df1=df1,df2=df2)
 

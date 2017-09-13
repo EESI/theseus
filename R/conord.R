@@ -47,13 +47,13 @@ conord <- function(PS,formula,method=c('CCA','RDA'),facets,scaling=2,tax_level='
 
 
   sample_data(PS) <- sample_data(PS) %>%
-    select(cov_subset)
+    dplyr::select(cov_subset)
 
   sample_data(PS)$sample_id <- rownames(sample_data(PS))
   tax_table(PS) <- cbind(tax_table(PS),taxa_id=rownames(tax_table(PS)))
 
   PS <- prune_samples(sample_data(PS) %>%
-                        drop_na() %>%
+                        tidyr::drop_na() %>%
                         rownames(.),PS)
 
   form <- update.formula(formula, PS~.)
@@ -71,30 +71,30 @@ conord <- function(PS,formula,method=c('CCA','RDA'),facets,scaling=2,tax_level='
   sites <- data.frame(scores$sites)
   colnames(sites) <- paste0(colnames(sites),'_sites')
   sites$sample_id <- rownames(sites)
-  df <- df %>% left_join(sites,by='sample_id')
+  df <- df %>% dplyr::left_join(sites,by='sample_id')
 
   species <- data.frame(scores$species)
   colnames(species) <- paste0(colnames(species),'_species')
   species$taxa_id <- rownames(species)
-  df <- suppressWarnings(df %>% left_join(species,by='taxa_id'))
+  df <- suppressWarnings(df %>% dplyr::left_join(species,by='taxa_id'))
 
   colnames(df) <- gsub(method,'axis',colnames(df))
 
-  scaler <- df %>% select(starts_with('axis')) %>% unlist() %>% max(abs(.),na.rm=TRUE)
+  scaler <- df %>% dplyr::select(dplyr::starts_with('axis')) %>% unlist() %>% max(abs(.),na.rm=TRUE)
   bp <- data.frame(ord$CCA$biplot * scaler) %>%
-    mutate(covariate=rownames(.),
-           origin=0)
+    dplyr::mutate(covariate=rownames(.),
+                  origin=0)
   colnames(bp) <- gsub(method,'axis',colnames(bp))
 
   p1 <- ggplot() +
     geom_vline(xintercept=0) +
     geom_hline(yintercept=0) +
-    geom_point(data=df %>% select(axis1_sites,axis2_sites,cov_subset) %>% distinct(),
+    geom_point(data=df %>% dplyr::select(axis1_sites,axis2_sites,cov_subset) %>% dplyr::distinct(),
                aes(x = axis1_sites, y = axis2_sites), alpha = 0.4,size=7) +
-    geom_point(data=df %>% select(axis1_species,axis2_species,Kingdom:Species) %>% distinct(),
+    geom_point(data=df %>% dplyr::select(axis1_species,axis2_species,Kingdom:Species) %>% dplyr::distinct(),
                aes_string(x = 'axis1_species', y = 'axis2_species', color = tax_level), alpha=0.7, size = 1) +
     geom_segment(data=bp,aes(x=origin,y=origin,xend=axis1,yend=axis2),
-                 arrow=arrow(length=unit(0.03,'npc')),size=1.5,alpha=.5,color='darkred') +
+                 arrow=grid::arrow(length=unit(0.03,'npc')),size=1.5,alpha=.5,color='darkred') +
     geom_text(data=bp,aes(x=axis1,y=axis2,label=covariate),fontface='bold') +
     guides(col = guide_legend(override.aes = list(size = 3))) +
     labs(x = sprintf("Axis1 [%s%% variance]", round(eig_p[1], 2)),
