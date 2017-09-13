@@ -14,6 +14,12 @@ os:
 
 latex: true
 
+bioc_required: true
+
+bioc_packages:
+ - phyloseq
+ - ShortRead
+
 env:
   global:
     - _R_CHECK_FORCE_SUGGESTS_=false
