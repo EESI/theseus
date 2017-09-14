@@ -1,13 +1,16 @@
 Package: theseus
 Type: Package
-Title: It does stuff
+Title: Analysis and Visualization Tools for Microbial Community Data
 Version: 0.0.900
 Authors@R: c(
-    person("Jake", "Price", email = "jrp355@drexel.edu", role = c("cre","aut")),
-    person("Stephen", "Woloszynek", email = "sw424@drexel.edu", role = c("aut"))
+    person("Jacob", "Price", email = "jrp355@drexel.edu", role = c("cre","aut")),
+    person("Stephen", "Woloszynek", email = "sw424@drexel.edu", role = c("aut")),
+    person("Gail", "Rosen", email = "gailr@coe.drexel.edu", role = c("aut")),
+    person("Christopher", "Sales", email = "cms566@drexel.edu", role = c("aut"))
     )
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: theseus provides functions to assist in the analysis, 
+    visualization, and interpretation of community composition 
+    data, especially those originating from amplicon sequencing. 
 License: MIT + file LICENSE
 URL: http://github.com/sw1/theseus
 BugReports: http://github.com/sw1/theseus/issues
