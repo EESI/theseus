@@ -1,12 +1,13 @@
 #' @import ggplot2
 NULL
 
-#' Plots quality assessment
+#' Environmental variable fitting to unconstrained ordination diagrams
 #'
-#' Description paragraph
+#' Fits environmental variables as vectors (via \code{\link[vegan]{envfit}}) and smooth surfaces (via \code{\link[vegan]{ordisurf}}) to an ordination diagram. The figure is faceted if multiple variables are specified. 
 #'
-#' @param PS (required) asdf
-#' @param covariates (required) asdf
+#' @param PS (required) A phyloseq object.
+#' @param covariates (required) A character vector of covariates present in the phyloseq objects sample_data(). 
+#' @param ordmet Ordination method. Options are Principal Component Analysis (PCA) or Correspondence Analysis (CA). Defaults to PCA.
 #'
 #' @return A ggplot object.
 #'
@@ -15,17 +16,17 @@ NULL
 #' Y
 #' Z
 #'
-#' @seealso \code{\link[vegan]{rda}} \code{\link[vegan]{envfit}} \code{\link[vegan]{ordisurf}}
+#' @seealso \code{\link[vegan]{rda}} \code{\link[vegan]{cca}} \code{\link[vegan]{envfit}} \code{\link[vegan]{ordisurf}}
 #'
 #' @examples
 #' \dontrun{
 #' covariates <- c('SL_NPOC','SL_NO3','SL_NH4')
-#' surf(PS,covariates)
+#' envtoverlay(PS,covariates)
 #' }
 #'
 #' @export
 
-surf <- function(PS,covariates){
+envtoverlay <- function(PS, covariates, ordmet="PCA"){
 
   plot.new()
 
@@ -37,7 +38,11 @@ surf <- function(PS,covariates){
 
   if (PS@otu_table@taxa_are_rows) OTU <- t(OTU)
 
-  R <- vegan::rda(OTU)
+  if (ordmet=="PCA") {
+    R <- vegan::rda(OTU)
+  } else if (ordmet=="CA") {
+    R <- vegan::cca(OTU)
+  }
 
   form <- as.formula(sprintf('%s ~ %s','R',paste(covariates,collapse=' + ')))
   env <- vegan::envfit(form,SAMP,na.rm=TRUE)
