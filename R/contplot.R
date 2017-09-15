@@ -1,17 +1,18 @@
 #' @import ggplot2
 NULL
 
-#' Plots quality assessment
+#' Plots a contour plot of a three dimensional surface
 #'
-#' Description paragraph
+#' Function cont represents a 3 dimensional surface as a contour plot. 
 #'
-#' @param x (required) asdf
-#' @param y (required) asdf
-#' @param z (required) asdf
-#' @param data (required) asdf
-#' @param method asdf. Defaults to linear.
+#' @param x (required) Vector of x-coordinates (within 'data'). 
+#' @param y (required) Vector of y-coordinates (within 'data').
+#' @param z (required) Vector of z-coordinates (within 'data').
+#' @param data (required) A dataframe-like object containing x, y, and z. 
+#' @param method Surface fitting method. Options are "linear", "spline", and "loess". Defaults to linear.
+#' @param removeMissing Remove entries with missing values. Defaults to FALSE. 
 #' @param ... Additional arguments for loess.
-#'
+#' 
 #' @return A ggplot object.
 #'
 #' @references
@@ -28,12 +29,16 @@ NULL
 #'
 #' @export
 
-cont <- function(x,y,z,data,method=c('linear','spline','loess'),...){
+cont <- function(x,y,z,data,method=c('linear','spline','loess'),removeMissing=FALSE,...){
 
   method <- match.arg(method)
 
   if (!is.data.frame(data))
     data <- data.frame(data,stringsAsFactors=FALSE)
+  
+  if (removeMissing==TRUE){
+    data <- subset(dat, !(is.na(x) | is.na(y) | is.na(z)))
+  }
 
   if (method == 'loess'){
     form <- as.formula(sprintf('%s ~ %s * %s',z,x,y))
