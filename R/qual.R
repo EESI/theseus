@@ -10,7 +10,7 @@ NULL
 #' @param idx asdf
 #' @param percentile asdf. Defaults to .25.
 #' @param n_trim asdf. Defaults to 100.
-#' @param n_seqs asdf. Defaults to 12.
+#' @param n_samps asdf. Defaults to 12.
 #' @param q asdf. Defaults to 25, 30, and 35.
 #' @param bins adsf. Defaults to 50.
 #' @param nc asdf. Defaults to 1.
@@ -35,23 +35,23 @@ NULL
 #' fns <- sort(list.files(data_path,full.names=TRUE))
 #' f_path <- fns[grepl('R1', fns)]
 #' r_path <- fns[grepl('R2', fns)]
-#' p1 <- qual(f_path,r_path,n_seqs=12,verbose=TRUE,percentile=.25,nc=12)
+#' p1 <- qual(f_path,r_path,n_samps=12,verbose=TRUE,percentile=.25,nc=12)
 #' p1 + geom_hline(yintercept=175) + geom_vline(xintercept=275)
 #' }
 #'
 #' @export
 
-qual <- function(f_path,r_path,idx,percentile=.25,n_trim=100,n_seqs=12,q=c(25,30,35),bins=50,nc=1,
+qual <- function(f_path,r_path,idx,percentile=.25,n_trim=100,n_samps=12,q=c(25,30,35),bins=50,nc=1,
                  seed=sample.int(.Machine$integer.max,1),verbose=FALSE){
 
   set.seed(seed)
 
   if (missing(idx)){
-    if (verbose) message(sprintf('No sequence file indexes provided. Randomly selecting %s sequence pairs.',n_seqs))
-    idx <- sample(seq_along(f_path),n_seqs)
+    if (verbose) message(sprintf('No sequence file indexes provided. Randomly selecting %s sequence pairs.',n_samps))
+    idx <- sample(seq_along(f_path),n_samps)
   }
 
-  if (verbose) message(sprintf('Calculating scores for %s sequence pairs: ',n_seqs))
+  if (verbose) message(sprintf('Calculating scores for %s sequence pairs: ',n_samps))
   scores <- parallel::mclapply(seq_along(idx),function(i){
     q_f <- qual_scores(f_path[i],percentile=percentile)
     q_r <- qual_scores(r_path[i],percentile=percentile,forward=FALSE)
