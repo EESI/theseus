@@ -14,6 +14,8 @@ knitr::opts_chunk$set(collapse=TRUE,comment='#>',fig.path='README-')
 
 
 ## Overview
+<!-- same text as "description" in DESCRIPTION, just as a (temporary) placeholder. once it's up and running we can flesh some of this out. -->
+theseus provides functions to assist in the analysis, visualization, and interpretation of community composition data, especially those originating from amplicon sequencing.
 
 theseus
 
