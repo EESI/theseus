@@ -71,7 +71,7 @@ qualcontour <- function(f_path,r_path,idx,percentile=.25,n_trim=100,n_samples=12
   df_trim <- data.frame(x=0:n_trim,y=(0:n_trim)*-1 + n_trim)
 
   suppressWarnings(
-    p1 <- ggplot(contours,aes(x,y,alpha=..count..,fill=as.factor(level))) +
+    p1 <- ggplot(contours,aes_(~x,~y,alpha=~..count..,fill=~as.factor(level))) +
       geom_bin2d(bins=bins) +
       scale_fill_brewer(palette='Set1') +
       geom_abline(slope=-1,intercept=n_trim,linetype=3) +

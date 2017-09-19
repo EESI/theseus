@@ -28,7 +28,7 @@ NULL
 
 envtoverlay <- function(PS, covariates, ordmet='PCA'){
 
-  plot.new()
+  graphics::plot.new()
 
   OTU <- PS@otu_table@.Data
   SAMP <- suppressWarnings(dplyr::as_tibble(PS@sam_data))
@@ -38,9 +38,9 @@ envtoverlay <- function(PS, covariates, ordmet='PCA'){
 
   if (PS@otu_table@taxa_are_rows) OTU <- t(OTU)
 
-  if (ordmet=="PCA") {
+  if (ordmet=='PCA') {
     R <- vegan::rda(OTU)
-  } else if (ordmet=="CA") {
+  } else if (ordmet=='CA') {
     R <- vegan::cca(OTU)
   }
 
@@ -55,11 +55,11 @@ envtoverlay <- function(PS, covariates, ordmet='PCA'){
     O <- vegan::ordisurf(form,SAMP,plot=FALSE)
 
     df1 <- with(O,data.frame(x=grid$x,y=rep(grid$y,each=ncol(grid$z)),z=matrix(grid$z))) %>%
-      dplyr::filter(!is.na(z)) %>%
-      dplyr::mutate(covariate=k)
+      dplyr::filter_(~!is.na(z)) %>%
+      dplyr::mutate_(covariate=~k)
 
     df2 <- with(O,data.frame(x=model$x1,y=model$x2,z=NA)) %>%
-      dplyr::mutate(covariate=k)
+      dplyr::mutate_(covariate=~k)
 
     list(df1=df1,df2=df2)
 
@@ -73,9 +73,9 @@ envtoverlay <- function(PS, covariates, ordmet='PCA'){
   colnames(df_arrow) <- c('covariate','origin','PC1','PC2')
 
   ggplot() +
-    stat_contour(data=df1,aes(x,y,z=z,color=..level..)) +
-    geom_point(data=df2,aes(x,y)) +
-    geom_segment(data=df_arrow,aes(x=origin,y=origin,xend=PC1,yend=PC2),
+    stat_contour(data=df1,aes_(~x,~y,z=~z,color=~..level..)) +
+    geom_point(data=df2,aes_(~x,~y)) +
+    geom_segment(data=df_arrow,aes_(x=~origin,y=~origin,xend=~PC1,yend=~PC2),
                  arrow=arrow(length=unit(0.03,'npc'))) +
     facet_wrap(~covariate) +
     viridis::scale_color_viridis() +

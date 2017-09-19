@@ -51,7 +51,7 @@ cont <- function(x,y,z,data,method=c('linear','spline','loess'),removeMissing=FA
     df <- data.frame(lo_grid,z=matrix(lo_z))
     colnames(df) <- c('x','y','z')
 
-    df <- df[suppressWarnings(splancs::inpip(df[,1:2],data[chull(data$xvar,data$yvar),1:2])),]
+    df <- df[suppressWarnings(splancs::inpip(df[,1:2],data[grDevices::chull(data$xvar,data$yvar),1:2])),]
   }
 
   if (method == 'linear' | method == 'spline'){

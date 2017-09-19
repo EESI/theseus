@@ -7,15 +7,16 @@ get_top_taxa <- function(PS,tax_level='Phylum',tax_n=7){
 
   TAX <- phyloseq::tax_table(PS)@.Data %>%
     data.frame(stringsAsFactors = FALSE) %>%
-    dplyr::mutate(id=rownames(.))
+    dplyr::mutate_(id=~rownames(.))
 
   top <- data.frame(abundance=colSums(OTU),id=colnames(OTU),stringsAsFactors=FALSE) %>%
     dplyr::left_join(TAX,by='id') %>%
     dplyr::group_by_(tax_level) %>%
-    dplyr::summarize(abundance=sum(abundance)) %>%
-    dplyr::arrange(dplyr::desc(abundance)) %>%
-    as.data.frame() %>%
-    .[1:tax_n,1]
+    dplyr::summarize_(abundance=~sum(abundance)) %>%
+    dplyr::arrange_(~dplyr::desc(abundance)) %>%
+    as.data.frame()
+
+  top <- top[1:tax_n,1]
 
   return(top)
 
@@ -24,8 +25,8 @@ get_top_taxa <- function(PS,tax_level='Phylum',tax_n=7){
 rename_column_to_other <- function(df,tax_level,top_taxa){
 
   df[[tax_level]] <- as.character.factor(df[[tax_level]])
-  df[[tax_level]][!(df[[tax_level]] %in% top_taxa)] <- "Other"
-  df[[tax_level]] <- factor(df[[tax_level]],levels=c(top_taxa,"Other"))
+  df[[tax_level]][!(df[[tax_level]] %in% top_taxa)] <- 'Other'
+  df[[tax_level]] <- factor(df[[tax_level]],levels=c(top_taxa,'Other'))
 
   return(df)
 
@@ -38,7 +39,6 @@ qual_scores <- function(path,percentile=.25,forward=TRUE){
   srqa <- ShortRead::qa(path)
 
   df <- srqa[['perCycle']]$quality
-  rc <- srqa[['readCounts']]$read
 
   quant <- as.vector(by(df,df$Cycle,function(x) get_quant(x$Score,x$Count,percentile),simplify=TRUE))
 

@@ -60,7 +60,7 @@ constord <- function(PS,formula,method=c('CCA','RDA'),facets,scaling=2,tax_level
 
   PS <- phyloseq::prune_samples(sample_data(PS) %>%
                         tidyr::drop_na() %>%
-                        rownames(.),PS)
+                        rownames(~.),PS)
 
   form <- stats::update.formula(formula, PS~.)
 
@@ -86,7 +86,7 @@ constord <- function(PS,formula,method=c('CCA','RDA'),facets,scaling=2,tax_level
 
   colnames(df) <- gsub(method,'axis',colnames(df))
 
-  scaler <- df %>% dplyr::select(dplyr::starts_with('axis')) %>% unlist() %>% max(abs(.),na.rm=TRUE)
+  scaler <- df %>% dplyr::select(dplyr::starts_with('axis')) %>% unlist() %>% max(abs(~.),na.rm=TRUE)
   bp <- data.frame(ord$CCA$biplot * scaler) %>%
     dplyr::mutate(covariate=rownames(.),
                   origin=0)
@@ -95,13 +95,13 @@ constord <- function(PS,formula,method=c('CCA','RDA'),facets,scaling=2,tax_level
   p1 <- ggplot() +
     geom_vline(xintercept=0) +
     geom_hline(yintercept=0) +
-    geom_point(data=df %>% dplyr::select(axis1_sites,axis2_sites,cov_subset) %>% dplyr::distinct(),
-               aes(x = axis1_sites, y = axis2_sites), alpha = 0.4,size=7) +
-    geom_point(data=df %>% dplyr::select(axis1_species,axis2_species,Kingdom:Species) %>% dplyr::distinct(),
+    geom_point(data=df %>% dplyr::select_(~axis1_sites,~axis2_sites,~cov_subset) %>% dplyr::distinct(),
+               aes_(x = ~axis1_sites, y = ~axis2_sites), alpha = 0.4,size=7) +
+    geom_point(data=df %>% dplyr::select_(~axis1_species,~axis2_species,~Kingdom:Species) %>% dplyr::distinct(),
                aes_string(x = 'axis1_species', y = 'axis2_species', color = tax_level), alpha=0.7, size = 1) +
-    geom_segment(data=bp,aes(x=origin,y=origin,xend=axis1,yend=axis2),
+    geom_segment(data=bp,aes_(x=~origin,y=~origin,xend=~axis1,yend=~axis2),
                  arrow=grid::arrow(length=unit(0.03,'npc')),size=1.5,alpha=.5,color='darkred') +
-    geom_text(data=bp,aes(x=axis1,y=axis2,label=covariate),fontface='bold') +
+    geom_text(data=bp,aes_(x=~axis1,y=~axis2,label=~covariate),fontface='bold') +
     guides(col = guide_legend(override.aes = list(size = 3))) +
     labs(x = sprintf("Axis1 [%s%% variance]", round(eig_p[1], 2)),
          y = sprintf("Axis2 [%s%% variance]", round(eig_p[2], 2))) +
