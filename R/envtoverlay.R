@@ -3,10 +3,10 @@ NULL
 
 #' Environmental variable fitting to unconstrained ordination diagrams
 #'
-#' Fits environmental variables as vectors (via \code{\link[vegan]{envfit}}) and smooth surfaces (via \code{\link[vegan]{ordisurf}}) to an ordination diagram. The figure is faceted if multiple variables are specified. 
+#' Fits environmental variables as vectors (via \code{\link[vegan]{envfit}}) and smooth surfaces (via \code{\link[vegan]{ordisurf}}) to an ordination diagram. The figure is faceted if multiple variables are specified.
 #'
 #' @param PS (required) A phyloseq object.
-#' @param covariates (required) A character vector of covariates present in the phyloseq objects sample_data(). 
+#' @param covariates (required) A character vector of covariates present in the phyloseq objects sample_data().
 #' @param ordmet Ordination method. Options are Principal Component Analysis (PCA) or Correspondence Analysis (CA). Defaults to PCA.
 #'
 #' @return A ggplot object.
@@ -26,7 +26,7 @@ NULL
 #'
 #' @export
 
-envtoverlay <- function(PS, covariates, ordmet="PCA"){
+envtoverlay <- function(PS, covariates, ordmet='PCA'){
 
   plot.new()
 
@@ -44,14 +44,14 @@ envtoverlay <- function(PS, covariates, ordmet="PCA"){
     R <- vegan::cca(OTU)
   }
 
-  form <- as.formula(sprintf('%s ~ %s','R',paste(covariates,collapse=' + ')))
+  form <- stats::as.formula(sprintf('%s ~ %s','R',paste(covariates,collapse=' + ')))
   env <- vegan::envfit(form,SAMP,na.rm=TRUE)
 
   v <- (sqrt(env$vectors$r) * env$vectors$arrows)[,1:2,drop=FALSE]
 
   df <- lapply(covariates,function(k){
 
-    form <- as.formula(sprintf('%s ~ %s','R',k))
+    form <- stats::as.formula(sprintf('%s ~ %s','R',k))
     O <- vegan::ordisurf(form,SAMP,plot=FALSE)
 
     df1 <- with(O,data.frame(x=grid$x,y=rep(grid$y,each=ncol(grid$z)),z=matrix(grid$z))) %>%

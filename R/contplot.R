@@ -3,16 +3,16 @@ NULL
 
 #' Plots a contour plot of a three dimensional surface
 #'
-#' Function cont represents a 3 dimensional surface as a contour plot. 
+#' Function cont represents a 3 dimensional surface as a contour plot.
 #'
-#' @param x (required) Vector of x-coordinates (within 'data'). 
+#' @param x (required) Vector of x-coordinates (within 'data').
 #' @param y (required) Vector of y-coordinates (within 'data').
 #' @param z (required) Vector of z-coordinates (within 'data').
-#' @param data (required) A dataframe-like object containing x, y, and z. 
+#' @param data (required) A dataframe-like object containing x, y, and z.
 #' @param method Surface fitting method. Options are "linear", "spline", and "loess". Defaults to linear.
-#' @param removeMissing Remove entries with missing values. Defaults to FALSE. 
+#' @param removeMissing Remove entries with missing values. Defaults to FALSE.
 #' @param ... Additional arguments for loess.
-#' 
+#'
 #' @return A ggplot object.
 #'
 #' @references
@@ -35,19 +35,19 @@ cont <- function(x,y,z,data,method=c('linear','spline','loess'),removeMissing=FA
 
   if (!is.data.frame(data))
     data <- data.frame(data,stringsAsFactors=FALSE)
-  
+
   if (removeMissing==TRUE){
-    data <- subset(dat, !(is.na(x) | is.na(y) | is.na(z)))
+    data <- subset(dat,!(is.na(x) | is.na(y) | is.na(z)))
   }
 
   if (method == 'loess'){
-    form <- as.formula(sprintf('%s ~ %s * %s',z,x,y))
+    form <- stats::as.formula(sprintf('%s ~ %s * %s',z,x,y))
     lo <- stats::loess(form,data,...)
     lo_x <- seq(min(data$x),max(data$x),length=length(data$x))
     lo_y <- seq(min(data$y),max(data$y),length=length(data$y))
     lo_grid <- expand.grid(x=lo_x,y=lo_y)
     colnames(lo_grid) <- c(x,y)
-    lo_z <- predict(lo,newdata=lo_grid)
+    lo_z <- stats::predict(lo,newdata=lo_grid)
     df <- data.frame(lo_grid,z=matrix(lo_z))
     colnames(df) <- c('x','y','z')
 

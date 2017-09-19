@@ -1,11 +1,11 @@
 get_top_taxa <- function(PS,tax_level='Phylum',tax_n=7){
 
-  OTU <- otu_table(PS)@.Data %>%
+  OTU <- phyloseq::otu_table(PS)@.Data %>%
     data.frame(stringsAsFactors = FALSE)
 
   if (PS@otu_table@taxa_are_rows) OTU <- t(OTU)
 
-  TAX <- tax_table(PS)@.Data %>%
+  TAX <- phyloseq::tax_table(PS)@.Data %>%
     data.frame(stringsAsFactors = FALSE) %>%
     dplyr::mutate(id=rownames(.))
 
@@ -13,7 +13,7 @@ get_top_taxa <- function(PS,tax_level='Phylum',tax_n=7){
     dplyr::left_join(TAX,by='id') %>%
     dplyr::group_by_(tax_level) %>%
     dplyr::summarize(abundance=sum(abundance)) %>%
-    dplyr::arrange(desc(abundance)) %>%
+    dplyr::arrange(dplyr::desc(abundance)) %>%
     as.data.frame() %>%
     .[1:tax_n,1]
 

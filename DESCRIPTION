@@ -17,13 +17,13 @@ BugReports: http://github.com/sw1/theseus/issues
 Encoding: UTF-8
 LazyData: TRUE
 Depends:
-    R (>= 3.3.0),
-    phyloseq (>= 1.20.0)
+    R (>= 3.3.0)
 Imports:
     akima (>= 0.6.2),
     ggplot2 (>= 2.2.1),
     magrittr (>= 1.5),
     parallel (>= 3.4.1),
+    phyloseq (>= 1.20.0),
     ShortRead (>= 1.34.0),
     splancs,
     tidyverse (>= 1.1.1),
