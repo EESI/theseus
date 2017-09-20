@@ -75,7 +75,7 @@ qualcontour <- function(f_path,r_path,idx,percentile=.25,n_trim=100,n_samples=12
       geom_bin2d(bins=bins) +
       scale_fill_brewer(palette='Set1') +
       geom_abline(slope=-1,intercept=n_trim,linetype=3) +
-      geom_ribbon(data=df_trim,aes(x,ymin=1,ymax=y,count=0),fill='black',alpha=.1) +
+      geom_ribbon(data=df_trim,aes_(~x,ymin=1,ymax=~y,count=0),fill='black',alpha=.1) +
       theme_classic() +
       theme(aspect.ratio=1,axis.text.x=element_text(angle=90,vjust=.5,hjust=1)) +
       scale_x_continuous(expand=c(0,0),limits=c(-1,len),breaks=seq(0,len,50)) +

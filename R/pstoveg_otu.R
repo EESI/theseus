@@ -1,6 +1,3 @@
-#' @import phyloseq
-NULL
-
 #' converts the otu_table slot of a phyloseq object to a vegan-compatible matrix
 #'
 #' physeq2veg_otu is a helper function intended to convert the species/taxa count slot of a phyloseq object to a vegan-friendly matrix.

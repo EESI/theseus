@@ -17,7 +17,15 @@ test_that('rename_column_to_other returns taxa names of correct length',{
   top_taxa <- get_top_taxa(WWTP_Impact)
   other <- table(rename_column_to_other(df,tax_level='Phylum',top_taxa)$Phylum,useNA='always')
 
-  expect_length(top,9)
+  expect_length(other,9)
   expect_equal(unname(other[which(is.na(names(other)))]),0)
+
+})
+
+test_that('pstoveg_otu returns matrix',{
+
+  otu <- pstoveg_otu(WWTP_Impact)
+
+  expect_is(otu,'matrix')
 
 })
