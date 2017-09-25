@@ -26,7 +26,7 @@ test_that('constord returns ggplot for various params.',{
 
 })
 
-test_that('constord returns ggplot for various params.',{
+test_that('contplot returns ggplot for various params.',{
 
   X <- data.frame(x=WWTP_Impact@sam_data@.Data[[75]],
                   y=WWTP_Impact@sam_data@.Data[[76]],
