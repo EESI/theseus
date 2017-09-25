@@ -11,3 +11,11 @@ test_that('qualcontour returns ggplot.',{
   expect_is(x,'ggplot')
 
 })
+
+test_that('prev returns ggplot.',{
+
+  x <- prev(WWTP_Impact)
+
+  expect_is(x,'ggplot')
+
+})
