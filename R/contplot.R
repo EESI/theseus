@@ -51,7 +51,7 @@ contplot <- function(x,y,z,data,method=c('linear','spline','loess'),removeMissin
     df <- data.frame(lo_grid,z=matrix(lo_z))
     colnames(df) <- c('x','y','z')
 
-    df <- df[suppressWarnings(splancs::inpip(df[,1:2],data[grDevices::chull(data[,x]$var,data[,y]$var),1:2])),]
+    df <- df[suppressWarnings(splancs::inpip(df[,1:2],data[grDevices::chull(data[,x],data[,y]),1:2])),]
   }
 
   if (method == 'linear' | method == 'spline'){
