@@ -20,6 +20,7 @@ Depends:
     R (>= 3.3.0)
 Imports:
     akima (>= 0.6.2),
+    dplyr,
     ggplot2 (>= 2.2.1),
     magrittr (>= 1.5),
     parallel (>= 3.4.1),
@@ -27,6 +28,7 @@ Imports:
     ShortRead (>= 1.34.0),
     splancs,
     tidyverse (>= 1.1.1),
+    tidyr,
     vegan (>= 2.3.5),
     viridis (>= 0.4.0)
 Suggests: 

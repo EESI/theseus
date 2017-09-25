@@ -28,15 +28,17 @@ test_that('constord returns ggplot for various params.',{
 
 test_that('constord returns ggplot for various params.',{
 
-  X <- data.frame(phyloseq::sample_data(WWTP_Impact),stringsAsFactors=FALSE)
+  X <- data.frame(x=WWTP_Impact@sam_data@.Data[[75]],
+                  y=WWTP_Impact@sam_data@.Data[[76]],
+                  z=WWTP_Impact@sam_data@.Data[[77]])
 
-  x <- contplot('log_Si','log_Cu','log_Mn',X,method='linear',removeMissing=FALSE)
+  x <- contplot('x','y','z',X,method='linear',removeMissing=FALSE)
   expect_is(x,'ggplot')
 
-  x <- contplot('log_Si','log_Cu','log_Mn',X,method='spline',removeMissing=FALSE)
+  x <- contplot('x','y','z',X,method='spline',removeMissing=FALSE)
   expect_is(x,'ggplot')
 
-  x <- contplot('log_Si','log_Cu','log_Mn',X,method='loess',removeMissing=FALSE)
+  x <- contplot('x','y','z',X,method='loess',removeMissing=FALSE)
   expect_is(x,'ggplot')
 
 
