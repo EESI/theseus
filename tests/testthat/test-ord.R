@@ -28,7 +28,7 @@ test_that('constord returns ggplot for various params.',{
 
 test_that('constord returns ggplot for various params.',{
 
-  X <- data.frame(sample_data(WWTP_Impact),stringsAsFactors=FALSE)
+  X <- data.frame(phyloseq::sample_data(WWTP_Impact),stringsAsFactors=FALSE)
 
   x <- contplot('log_Si','log_Cu','log_Mn',X,method='linear',removeMissing=FALSE)
   expect_is(x,'ggplot')
