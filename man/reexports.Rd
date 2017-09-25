@@ -4,6 +4,12 @@
 \name{reexports}
 \alias{reexports}
 \alias{\%>\%}
+\alias{reexports}
+\alias{tax_table<-}
+\alias{reexports}
+\alias{otu_table<-}
+\alias{reexports}
+\alias{sample_data<-}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -12,5 +18,7 @@ below to see their documentation.
 
 \describe{
   \item{magrittr}{\code{\link[magrittr]{\%>\%}}}
+
+  \item{phyloseq}{\code{\link[phyloseq]{tax_table<-}}, \code{\link[phyloseq]{otu_table<-}}, \code{\link[phyloseq]{sample_data<-}}}
 }}
 

@@ -1,5 +1,5 @@
 #' @import ggplot2
-#' @importFrom phyloseq otu_table sample_data tax_table sample_data<- tax_table<-
+#' @importFrom phyloseq otu_table sample_data tax_table
 NULL
 
 #' Plots constrained ordination results
@@ -30,7 +30,8 @@ NULL
 #'
 #' @examples
 #' \dontrun{
-#' constord(PS,~ SL_NPOC + SL_NO3 + SL_NH4,facets=~reactor.cat,tax_level='Class',scaling=2,method='RDA')
+#' constord(PS,~ SL_NPOC + SL_NO3 + SL_NH4,
+#' facets=~reactor.cat,tax_level='Class',scaling=2,method='RDA')
 #' }
 #'
 #' @export
@@ -60,7 +61,7 @@ constord <- function(PS,formula,method=c('CCA','RDA'),facets,scaling=2,tax_level
 
   PS <- phyloseq::prune_samples(sample_data(PS) %>%
                         tidyr::drop_na() %>%
-                        rownames(~.),PS)
+                        rownames(.),PS)
 
   form <- stats::update.formula(formula, PS~.)
 

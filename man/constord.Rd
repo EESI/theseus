@@ -37,7 +37,8 @@ Function conord performs Constrained Correspondence Analysis (CCA) or Redundancy
 }
 \examples{
 \dontrun{
-constord(PS,~ SL_NPOC + SL_NO3 + SL_NH4,facets=~reactor.cat,tax_level='Class',scaling=2,method='RDA')
+constord(PS,~ SL_NPOC + SL_NO3 + SL_NH4,
+facets=~reactor.cat,tax_level='Class',scaling=2,method='RDA')
 }
 
 }

@@ -6,5 +6,6 @@ citEntry(
   author = personList(as.person('Jake Price'),
                       as.person('Stephen Woloszynek')),
   year = '2017',
-  url = 'https://github.com/sw1/theseus'
+  url = 'https://github.com/sw1/theseus',
+  textVersion = paste('theseus. 2017. Price, J. and Woloszynek, S.')
 )
