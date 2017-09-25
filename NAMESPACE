@@ -2,7 +2,7 @@
 
 export("%>%")
 export(constord)
-export(cont)
+export(contplot)
 export(envtoverlay)
 export(pstoveg_otu)
 export(qualcontour)

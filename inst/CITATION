@@ -1,0 +1,9 @@
+citHeader('To cite theseus for publications, see https://github.com/sw1/theseus for most recent information; otherwise, please use:')
+
+citEntry(
+  entry = 'Misc',
+  title = 'theseus',
+  author = personList(as.person('Jake Price'),
+                      as.person('Stephen Woloszynek'),
+  url = 'https://github.com/sw1/theseus'
+)

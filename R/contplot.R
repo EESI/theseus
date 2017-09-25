@@ -29,7 +29,7 @@ NULL
 #'
 #' @export
 
-cont <- function(x,y,z,data,method=c('linear','spline','loess'),removeMissing=FALSE,...){
+contplot <- function(x,y,z,data,method=c('linear','spline','loess'),removeMissing=FALSE,...){
 
   method <- match.arg(method)
 
@@ -37,30 +37,30 @@ cont <- function(x,y,z,data,method=c('linear','spline','loess'),removeMissing=FA
     data <- data.frame(data,stringsAsFactors=FALSE)
 
   if (removeMissing==TRUE){
-    data <- subset(dat,!(is.na(x) | is.na(y) | is.na(z)))
+    data <- subset(data,!(is.na(x) | is.na(y) | is.na(z)))
   }
 
   if (method == 'loess'){
     form <- stats::as.formula(sprintf('%s ~ %s * %s',z,x,y))
     lo <- stats::loess(form,data,...)
-    lo_x <- seq(min(data$x),max(data$x),length=length(data$x))
-    lo_y <- seq(min(data$y),max(data$y),length=length(data$y))
+    lo_x <- seq(min(data[,x]),max(data[,x]),length=length(data[,x]))
+    lo_y <- seq(min(data[,y]),max(data[,y]),length=length(data[,y]))
     lo_grid <- expand.grid(x=lo_x,y=lo_y)
     colnames(lo_grid) <- c(x,y)
     lo_z <- stats::predict(lo,newdata=lo_grid)
     df <- data.frame(lo_grid,z=matrix(lo_z))
     colnames(df) <- c('x','y','z')
 
-    df <- df[suppressWarnings(splancs::inpip(df[,1:2],data[grDevices::chull(data$xvar,data$yvar),1:2])),]
+    df <- df[suppressWarnings(splancs::inpip(df[,1:2],data[grDevices::chull(data[,x]$var,data[,y]$var),1:2])),]
   }
 
   if (method == 'linear' | method == 'spline'){
 
     if (method == 'linear') linear <- TRUE else linear <- FALSE
 
-    S <- akima::interp(x=data$x,y=data$y,z=data$z,
-                       xo=seq(min(data$x),max(data$x),length=length(data$x)),
-                       yo=seq(min(data$y),max(data$y),length=length(data$y)),
+    S <- akima::interp(x=data[,x],y=data[,y],z=data[,z],
+                       xo=seq(min(data[,x]),max(data[,x]),length=length(data[,x])),
+                       yo=seq(min(data[,y]),max(data[,y]),length=length(data[,y])),
                        linear=linear)
 
     df <- with(S,data.frame(x=x,y=rep(y,each=ncol(z)),z=matrix(z))) %>%

@@ -1,4 +1,4 @@
-context("helper functions")
+context('helper functions')
 
 test_that('get_top_taxa returns taxa names of correct length',{
 

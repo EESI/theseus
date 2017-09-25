@@ -86,7 +86,7 @@ constord <- function(PS,formula,method=c('CCA','RDA'),facets,scaling=2,tax_level
 
   colnames(df) <- gsub(method,'axis',colnames(df))
 
-  scaler <- df %>% dplyr::select(dplyr::starts_with('axis')) %>% unlist() %>% max(abs(~.),na.rm=TRUE)
+  scaler <- df %>% dplyr::select(dplyr::starts_with('axis')) %>% unlist() %>% max(abs(.),na.rm=TRUE)
   bp <- data.frame(ord$CCA$biplot * scaler) %>%
     dplyr::mutate(covariate=rownames(.),
                   origin=0)
