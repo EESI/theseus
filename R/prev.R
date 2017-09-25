@@ -26,7 +26,7 @@ NULL
 #'
 #' @export
 
-prev <- function(PS,taxon='Phylum',n_taxa=10,theshold=3){
+prev <- function(PS,taxon='Phylum',n_taxa=10,threshold=3){
 
   facet_form <- stats::as.formula(sprintf('~%s',taxon))
 
