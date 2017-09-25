@@ -1,5 +1,5 @@
 #' @import ggplot2
-#' @importFrom phyloseq otu_table sample_data tax_table sample_data<-
+#' @importFrom phyloseq otu_table sample_data tax_table sample_data<- tax_table<-
 NULL
 
 #' Plots constrained ordination results
