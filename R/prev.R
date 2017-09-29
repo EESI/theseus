@@ -9,7 +9,6 @@ NULL
 #' @param PS (required) A phyloseq object.
 #' @param taxon asdf
 #' @param n_taxa adsf
-#' @param theshold asdf
 #'
 #' @return A ggplot object.
 #'
@@ -26,22 +25,28 @@ NULL
 #'
 #' @export
 
-prev <- function(PS,taxon='Phylum',n_taxa=10,threshold=3){
-
-  facet_form <- stats::as.formula(sprintf('~%s',taxon))
+prev <- function(PS,taxon,n_taxa=10,threshold=3){
 
   df <- data.frame(tax=phyloseq::taxa_names(PS),
                    abundance=phyloseq::taxa_sums(PS),
                    prevalence=colSums(otu_table(PS)>0)/phyloseq::nsamples(PS)) %>%
-    dplyr::left_join(data.frame(tax=phyloseq::taxa_names(PS),tax_table(PS)),by='tax') %>%
-    dplyr::filter_(sprintf("%s %%in%% names(sort(table(.[,'%s']),decreasing=TRUE)[1:%s])",taxon,taxon,n_taxa))
+    dplyr::left_join(data.frame(tax=phyloseq::taxa_names(PS),tax_table(PS)),by='tax')
 
-  ggplot(df,aes_(~abundance,~prevalence)) +
-    geom_hline(yintercept=threshold/phyloseq::nsamples(PS),color='red',linetype=2) +
+  if (!missing(taxon)){
+    df <- df %>% dplyr::filter_(sprintf("%s %%in%% names(sort(table(.[,'%s']),decreasing=TRUE)[1:%s])",taxon,taxon,n_taxa))
+  }
+
+  p1 <- ggplot(df,aes_(~prevalence,~abundance)) +
     geom_point(alpha=.4) +
-    facet_wrap(facet_form) +
-    scale_x_log10(breaks=10^(0:ceiling(log10(max(df$abundance))))) +
-    theme(aspect.ratio=.5,axis.text.x=element_text(angle=-90,vjust=.5,hjust=0))
+    scale_y_log10(breaks=10^(0:ceiling(log10(max(df$abundance))))) +
+    theme(aspect.ratio=1,axis.text.x=element_text(angle=-90,vjust=.5,hjust=0))
+
+  if (!missing(taxon)){
+    facet_form <- stats::as.formula(sprintf('~%s',taxon))
+    p1 <- p1 + facet_wrap(facet_form)
+  }
+
+  p1
 
 }
 
