@@ -6,7 +6,7 @@ warnings_are_errors: true
 
 r:
   - release #3.4.0
-  - devel
+  #- devel
 
 os:
   - linux
