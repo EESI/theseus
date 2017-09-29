@@ -1,30 +1,53 @@
 #' @import ggplot2
 NULL
 
-#' Plots a contour plot of a three dimensional surface
+#' Plots a color/contour plot of a three dimensional surface
 #'
-#' Function cont represents a 3 dimensional surface as a contour plot.
+#' Function contplot fits a surface through a 3-dimensional irregularly-spaced dataset and presents the fitted surface as a 2-dimensional color/contour plot. 'linear', 'spline', and 'loess' fitting methods are currently supported for this function. Please note that missing values in 'data' are not tolerated (see Details). 
 #'
 #' @param x (required) Vector of x-coordinates (within 'data').
 #' @param y (required) Vector of y-coordinates (within 'data').
 #' @param z (required) Vector of z-coordinates (within 'data').
 #' @param data (required) A dataframe-like object containing x, y, and z.
-#' @param method Surface fitting method. Options are "linear", "spline", and "loess". Defaults to linear.
-#' @param removeMissing Remove entries with missing values. Defaults to FALSE.
+#' @param method Surface fitting method. Options are 'linear', 'spline', and 'loess' (see Details). Defaults to 'linear'.
+#' @param removeMissing Remove entries with missing values (see Details). Defaults to FALSE.
 #' @param ... Additional arguments for loess.
 #'
+#' @details
+#' This function can be used for both regularly and irregularly spaced data.  
+#' \subsection{'method' - surface fitting methods}{
+#' \itemize{
+#'   \item 'linear' uses the \code{\link[akima]{interp}} function in the akima R package (Akima and Gebhardt, 2016) to carry out bivariate linear intrpolation. 
+#'   \item 'spline' also uses the \code{\link[akima]{interp}} function in the akima R package (Akima and Gebhardt, 2016), but the 'linear' argument passed to \code{\link[akima]{interp}} is set to 'FALSE', resulting in bicubic spline interpolation. 
+#'   \item 'loess' uses the \code{\link[stats]{loess}} (R Core Team, 2017) and \code{\link[splancs]{inpip}} (Rowlingson and Diggle, 2017) functions to carry out locally weighted scatterplot smoothing (LOESS).
+#' }
+#' }
+#' 
+#' \subsection{Missing Values}{
+#' Missing values in 'x', 'y', or 'z' are not tolerated by these functions and will result in an error. Setting 'removeMissing' to TRUE will remove any and all entries that contain missing values before interpolation is carried out.
+#' }
+#' 
 #' @return A ggplot object.
 #'
 #' @references
-#' X
-#' Y
-#' Z
+#' Akima, H., and Gebhardt, A. (2016). akima: Interpolation of Irregularly and Regularly Spaced Data. R package version 0.6-2. \url{https://CRAN.R-project.org/package=akima}.  
+#' R Core Team (2017). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. \url{https://www.R-project.org/}.
+#' Rowlingson, B., and Diggle, P. (2017). splancs: Spatial and Space-Time Point Pattern Analysis. R package version 2.01-40. \url{https://CRAN.R-project.org/package=splancs}. 
 #'
 #' @seealso \code{\link[stats]{loess}} \code{\link[splancs]{inpip}} \code{\link[akima]{interp}}
 #'
 #' @examples
 #' \dontrun{
-#' cont('xvar','yvar','zvar',dat,method='loess',degree = 2, span = 0.1)
+#' library(theseus)
+#' data(akima, package='akima')
+#' str(akima)
+#' dat <- data.frame(cbind(a=akima$x, b=akima$y, c=akima$z))
+#' p.cp.l <- contplot(x='a', y='b', z='c', data=dat, method='linear')
+#' p.cp.l + ggtitle("contour plot with linear surface fitting")
+#' p.cp.s <- contplot(x='a', y='b', z='c', data=dat, method='spline')
+#' p.cp.s + ggtitle("contour plot with spline surface fitting")
+#' p.cp.loess <- contplot(x='a', y='b', z='c', data=dat, method='loess')
+#' p.cp.loess + ggtitle("contour plot with loess surface fitting")
 #' }
 #'
 #' @export

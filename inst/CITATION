@@ -3,7 +3,7 @@ citHeader('To cite theseus for publications, see https://github.com/sw1/theseus 
 citEntry(
   entry = 'Manual',
   title = 'theseus',
-  author = personList(as.person('Jake Price'),
+  author = personList(as.person('Jacob Price'),
                       as.person('Stephen Woloszynek')),
   year = '2017',
   url = 'https://github.com/sw1/theseus',
