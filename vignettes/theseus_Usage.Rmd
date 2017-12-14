@@ -161,3 +161,24 @@ gridExtra::grid.arrange(
 
 ![](p.cp.png)
 
+## cohort_relabund - Cohort Relative Abundance Plots
+
+
+```{r}
+data('sigtab')
+data('sigtab.2vs3')
+cohort_relabund(
+  PS=prune_samples(sample_data(WWTP_Impact)$site %in% c(1,2,3,4),WWTP_Impact), 
+  comp1=sigtab,
+  comp2=sigtab.2vs3,
+  comp1lab=c('Decreased at Effluent',
+             'No change at Effluent',
+             'Increased at effluent'),
+  comp2lab=c('Decreased btwn plants',
+             'No change btwn plants',
+             'Increased btwn plants')) +
+  theme(axis.text.y = element_text(angle=90, vjust=0, hjust=0.5)) +
+  theme(legend.text=element_text(size=5))
+```
+
+![](p.cra.png)
