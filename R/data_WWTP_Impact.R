@@ -1,6 +1,6 @@
 #' Freshwater stream microbiome data
 #'
-#' WWTP_Impact is a phyloseq object containing 16S rDNA amplicon sequencing data from samples collected at 6 sites on 2 days (12 total samples) along Wissahickon Creek and Sandy Run in southeastern Pennsylvania, USA. Sequencing data was processed as described in Price et. al. (2016), and combined with chemical data to create a phyloseq object. The raw data and scripts used to generate this phyloseq object (as well as the phyloseq object itself) can be obtained from the author's GitHub repository (see url below).  
+#' WWTP_Impact is a phyloseq object containing 16S rDNA amplicon sequencing data from samples collected at 6 sites on 2 days (12 total samples) along Wissahickon Creek and Sandy Run in southeastern Pennsylvania, USA. Sequencing data was processed as described in Price et. al. (2017), and combined with chemical data to create a phyloseq object. The raw data and scripts used to generate this phyloseq object (as well as the phyloseq object itself) can be obtained from the author's GitHub repository (see url below).  
 #'
 #' @docType data
 #' @name WWTP_Impact
