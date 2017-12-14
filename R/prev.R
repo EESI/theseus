@@ -13,7 +13,7 @@ NULL
 #' @param prev_threshold User selected value for the lowest acceptable prevalence. Defaults to 5% of the number of samples in the phyloseq object, rounded up to the nearest integer. 
 #' 
 #' @details
-#'    Low count taxa are often filtered from OTU tables to reduce possible error or noise. Examination of the raw (unfiltered) OTU table should be carried out to ensure that appropriate thresholds for prevalence (number of samples a taxa was observed in) and abundance (the total number of times a taxa was observed) are being selected. Function 'prev'plots each taxa according to thier prevalance and abundance within the dataset.  
+#'    Low count taxa are often filtered from OTU tables to reduce possible error or noise. Examination of the raw (unfiltered) OTU table should be carried out to ensure that appropriate thresholds for prevalence (number of samples a taxa was observed in) and abundance (the total number of times a taxa was observed) are being selected. Function 'prev' plots each taxa according to thier prevalance and abundance within the dataset.  
 #'
 #' @return A ggplot object.
 #'
@@ -35,8 +35,8 @@ prev <- function(PS,taxon,n_taxa=10,abund_threshold=3,prev_threshold=ceiling(0.0
 
   df <- data.frame(tax=phyloseq::taxa_names(PS),
                    abundance=phyloseq::taxa_sums(PS),
-                   prevalence=colSums(otu_table(PS)>0)/phyloseq::nsamples(PS)) %>%
-    dplyr::left_join(data.frame(tax=phyloseq::taxa_names(PS),tax_table(PS)),by='tax')
+                   prevalence=colSums(phyloseq::otu_table(PS)>0)/phyloseq::nsamples(PS)) %>%
+    dplyr::left_join(data.frame(tax=phyloseq::taxa_names(PS),phyloseq::tax_table(PS)),by='tax')
 
   if (!missing(taxon)){
     df <- df %>% dplyr::filter_(sprintf("%s %%in%% names(sort(table(.[,'%s']),decreasing=TRUE)[1:%s])",taxon,taxon,n_taxa))
