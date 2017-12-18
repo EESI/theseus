@@ -3,15 +3,21 @@ NULL
 
 #' Environmental variable fitting to unconstrained ordination diagrams
 #'
-#' Fits environmental variables as vectors (via \code{\link[vegan]{envfit}}) and smooth surfaces (via \code{\link[vegan]{ordisurf}}) to an ordination diagram. The figure is faceted if multiple variables are specified.
+#' Fits environmental variables as vectors (via \code{\link[vegan]{envfit}}) and
+#' smooth surfaces (via \code{\link[vegan]{ordisurf}}) to an ordination diagram.
+#' The figure is faceted if multiple variables are specified.
 #'
 #' @param PS (required) A phyloseq object.
-#' @param covariates (required) A character vector of covariates present in the phyloseq objects sample_data().
-#' @param ordmet Ordination method. Options are Principal Component Analysis ("PCA") or Correspondence Analysis ("CA"). Defaults to "PCA".
+#' @param covariates (required) A character vector of covariates present in the
+#'   phyloseq objects sample_data().
+#' @param ordmet Ordination method. Options are Principal Component Analysis
+#'   ("PCA") or Correspondence Analysis ("CA"). Defaults to "PCA".
 #'
 #' @return A ggplot object.
 #'
-#' @seealso \code{\link[vegan]{rda}} \code{\link[vegan]{cca}} \code{\link[vegan]{envfit}} \code{\link[vegan]{ordisurf}}
+#' @seealso \code{\link[vegan]{rda}} \code{\link[vegan]{cca}}
+#'   \code{\link[vegan]{envfit}}
+#'   \code{\link[vegan]{ordisurf}}
 #'
 #' @examples
 #' \dontrun{
@@ -19,7 +25,7 @@ NULL
 #' library(phyloseq)
 #' library(ggplot2)
 #' data('WWTP_Impact')
-#' cv <- c('log_NO3N', 'log_PO4')  
+#' cv <- c('log_NO3N', 'log_PO4')
 #' p.eo <- envtoverlay(WWTP_Impact, covariates=cv)
 #' p.eo
 #' }

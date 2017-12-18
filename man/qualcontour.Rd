@@ -2,32 +2,49 @@
 % Please edit documentation in R/qualcontour.R
 \name{qualcontour}
 \alias{qualcontour}
-\title{Plots quality assessment}
+\title{Create read quality color contour plots}
 \usage{
-qualcontour(f_path, r_path, idx, percentile = 0.25, n_trim = 100,
+qualcontour(f_path, r_path, idx, percentile = 0.25, amp_length, min_overlap,
   n_samples = 12, q = c(25, 30, 35), bins = 50, nc = 1,
   seed = sample.int(.Machine$integer.max, 1), verbose = FALSE)
 }
 \arguments{
-\item{f_path}{(required) A character vector locating the forward read (Read 1) .fastq files}
+\item{f_path}{(required) A character vector locating the forward read
+(Read 1) .fastq files}
 
-\item{r_path}{(required) A character vector locating the reverse read (Read 2) .fastq files}
+\item{r_path}{(required) A character vector locating the reverse read
+(Read 2) .fastq files}
 
-\item{idx}{Indexes (within f_path and r_path) identifying specific .fastq files for analysis}
+\item{idx}{Indexes (within f_path and r_path) identifying specific .fastq
+files to be used for analysis}
 
-\item{percentile}{The percentile to be targeted . Defaults to .25 (i.e. the first quartile).}
+\item{percentile}{The percentile to be targeted . Defaults to .25 (i.e. the
+first quartile).}
 
-\item{n_trim}{asdf. Defaults to 100.}
+\item{amp_length}{Intra-primer amplicon length. Calculated destance in
+base-pairs between primers. Used to determine region of no overlap. Both
+'amp_length' and 'min_overlap' must be provided for these calculations.}
 
-\item{n_samples}{Integer indicating the number of samples to include in the visualization. Defaults to 12.}
+\item{min_overlap}{The minimum amount of overlap between the two reads. Used
+to determine region of no overlap. Both 'amp_length' and 'min_overlap' must
+be provided for these calculations.}
 
-\item{q}{A numeric vector designating Phred quality scores to be represented on the plot. Defaults to 25, 30, and 35.}
+\item{n_samples}{Integer indicating the number of samples to include in the
+visualization. Defaults to 12.}
 
-\item{bins}{Integer designating the number of bins each read should be seperated into. For example, visualizing a 250 bp read with 50 bins would imply that each bin represents 5 cycles/bp. Increasing the number of bins improves granularity at the cost of memory and processing speed. Defaults to 50.}
+\item{q}{A numeric vector designating Phred quality scores to be represented
+on the plot. Defaults to 25, 30, and 35.}
+
+\item{bins}{Integer designating the number of bins each read should be
+seperated into. For example, visualizing a 250 bp read with 50 bins would
+imply that each bin represents 5 cycles/bp. Increasing the number of bins
+improves granularity at the cost of memory and processing speed. Defaults
+to 50.}
 
 \item{nc}{The number of cores to use when multithreading. Defaults to 1.}
 
-\item{seed}{An integer value to be used when randomly selecting the subset of samples to be visualized.}
+\item{seed}{An integer value to be used when randomly selecting the subset of
+samples to be visualized.}
 
 \item{verbose}{If set to TRUE, provides verbose output. Defaults to FALSE.}
 }
@@ -35,26 +52,42 @@ qualcontour(f_path, r_path, idx, percentile = 0.25, n_trim = 100,
 A ggplot object with the following attributes:
 \describe{
 \item{idx}{Samples used to generate the plot.}
+\item{amp_length}{Value for amp_length used to generate the plot.}
+\item{min_overlap}{Value for min_overlap used to generate the plot.}
 \item{seed}{Seed used to select the samples used to generate the plot.}
 }
 }
 \description{
-This function generates a 2-D contour map representing the location of quality scores for a designated percentile. It is intended to assist with deciding where trimming should be performed.
+This function generates a 2-D color/contour map representing the average
+quality scores by location (read cycle number) for a designated percentile. It is intended to assist the user with deciding where trimming should be performed.
+}
+\details{
+qualcontour's (quality contour) two required arguments are character
+  vectors of the file paths for forward ('f_path') and reverse ('r_path')
+  reads. qualcontour tabulates the distribution of quality scores at each
+  read cycle for the forward and reverse reads independently and then
+  averages (arithmetic mean) the quality scores for each (forward/reverse)
+  cycle combination. These values are then plotted as a ggplot2 object. Users
+  can (re)run 'qualcontour' with different 'percentile' values to visualize
+  how the quality scores varies in shape.
+  \code{\link[dada2]{plotQualityProfile}} in the 'dada2' package provides an
+  elegant way of looking at the quality profiles for the forward or reverse
+  reads.
 }
 \examples{
 \dontrun{
-fns <- sort(list.files(data_path,full.names=TRUE))
-f_path <- fns[grepl('R1', fns)]
-r_path <- fns[grepl('R2', fns)]
-p1 <- qualcontour(f_path,r_path,n_samples=12,verbose=TRUE,percentile=.25,nc=1)
-p1 + geom_hline(yintercept=175) + geom_vline(xintercept=275)
+library(theseus)
+library(ggplot2)
+fns <- sort(list.files(file.path(system.file(package='theseus'),
+            '/testdata/'), full.names=TRUE))
+f_path <- fns[grepl('R1.fastq.gz', fns)]
+r_path <- fns[grepl('R2.fastq.gz', fns)]
+p.qc <- qualcontour(f_path, r_path, n_samples=2, verbose=TRUE,
+                    percentile=.25, nc=1)
+p.qc
+p.qc + geom_hline(yintercept=175) + geom_vline(xintercept=275)
 }
 
-}
-\references{
-X
-Y
-Z
 }
 \seealso{
 \code{\link[ShortRead]{qa}} \code{\link[dada2]{plotQualityProfile}}

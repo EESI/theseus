@@ -1,12 +1,14 @@
-#' converts the sample_data slot of a phyloseq object to a vegan-compatible matrix
+#' Converts sample_data slot of a phyloseq object to vegan-compatible matrix
 #'
-#' physeq2veg_otu is a helper function intended to convert the species/taxa count slot of a phyloseq object to a vegan-friendly matrix.
+#' physeq2veg_otu is a helper function intended to convert the species/taxa
+#' count slot of a phyloseq object to a vegan-friendly matrix.
 #'
 #' @param PS (required) a phyloseq object
 #'
 #' @return A matrix containing a phyloseq object's otu_table slot.
 #'
-#' @seealso \code{\link[phyloseq]{phyloseq-class}} \code{\link[phyloseq]{otu_table-class}} \code{\link[phyloseq]{otu_table}}
+#' @seealso \code{\link[phyloseq]{phyloseq-class}}
+#'   \code{\link[phyloseq]{otu_table-class}} \code{\link[phyloseq]{otu_table}}
 #'
 #' @examples
 #' \dontrun{
