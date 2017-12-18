@@ -4,34 +4,48 @@ NULL
 
 #' Plots constrained ordination results
 #'
-#' Function conord performs Constrained Correspondence Analysis (CCA) or Redundancy Analysis (RDA) and plots the results as a ggplot object.
+#' Function 'conord' (constrained ordination) carries out constrained ordination on a phyloseq object and plots the results as a ggplot2 object. Constrained correspondence analysis ('CCA') and redundancy analysis ('RDA') are the two methods currently implemented within this function. 
 #'
 #' @param PS (required) A phyloseq object.
-#' @param formula (required) Right-hand side of the model formula starting with a tilde ("~").
+#' @param formula (required) Right-hand side of the model formula starting with a tilde ('~') and should not be placed in quotes. The current version requires at least two (2) constraining variables (see Details).
 #' @param method Constrained ordination method to be applied. User may choose Constrained Correspondence Analysis (CCA) or Redundancy Analysis (RDA). Defaults to CCA.
-#' @param facets Variable in sample_data(PS) to facet the plot by. Statement starts with a tilde ("~").
-#' @param scaling Scaling for species and site/sample scores in biplot. Options are the same as those found in the \code{\link[vegan]{scores}} function: "species" scaling (1) or "site" scaling (2). The user should designate the appropriate scaling for thier intended analysis. Further information regarding scaling can be found in the Details below. Defaults to 2.
-#' @param tax_level Taxonomic level to represent species composition using color. Defaults to "Phylum".
-#' @param tax_n The number of taxonomic groups to identify using color (at the taxonomic level 'tax_level'). The most abundant tax_n will be selected. All other taxonomic groups will be collapsed into an additional "Other" category for visualization. Defaults to 7.
+#' @param facets Variable in sample_data(PS) to facet the plot by. Statement starts with a tilde ('~') and should not be placed in quotes.
+#' @param scaling Scaling for species and site/sample scores in biplot. Options are the same as those found in the \code{\link[vegan]{scores}} function: "species" scaling (1) or 'site' scaling (2). The user should designate the appropriate scaling for thier intended analysis. Further information regarding scaling can be found in the Details below. Defaults to 2.
+#' @param tax_level Taxonomic level to represent species composition using color. Defaults to 'Phylum'.
+#' @param tax_n The number of taxonomic groups to identify using color (at the taxonomic level 'tax_level'). The most abundant tax_n will be selected. All other taxonomic groups will be collapsed into an additional 'Other' category for visualization. Defaults to 7.
 #'
 #' @details
+#' \subsection{General}{
+#' The current implementation of this function displays the first two constrained ordination axes. As such, the 'formula' argument must contain two or more constraining variables to return a valid plot; an error will be returned otherwise. Legendre and Legendre (1998, p. 587-592, 597-600, Table 11.1-11.5) provide thorough discussion on the constrained and unconstrained axes that result from constrained ordination methods. Selection of axes to plot, constrained or unconstrained, is a planned feature for a future release. 
+#' }
+#' 
+#' \subsection{Comparision with phyloseq::plot_ordination}{
+#' There are several differences between 'constord' and \code{\link[phyloseq]{plot_ordination}}, and they each have their own strengths. The highlights of 'constord' are: 
+#' \itemize{
+#'   \item constraining variables are included in the 'constord' plot, a feature not currently present in phyloseq's approach, but still possible with some extra coding.
+#'   \item 'constord' has argument 'scaling' which allows the user to select whether species scaling (1) or site scaling (2) is used when returning the scores to be plotting. Currently, *phyloseq::plot_ordination* returns site scaling (2). The choice of scaling is important and should be selected depending upon whether the goal is to compare the arrangement of sites or species (see Scalng section below).  
+#'   \item The aspect ratio of the ordination plots themselves are scaled according the ordination's eigenvalues to more accurately represent the distances between sites/samples, as described by Callahan et. al. (2016). Once again, this is easily included in \code{\link[phyloseq]{plot_ordination}}
+#' }
+#' }
+#' 
 #' \subsection{Scaling}{
-#'   Species scaling (1) results in a distance biplot. The distance biplot is intended to enable the user to interpret the relationships between sites/samples.
-#'   Site scaling (2) results in correlation biplot. The correlation biplot enables the user to interpret the correlation between descriptors (species) within the ordination. Positions of sites/samples are not approximations of thier true locations; use species scaling (1) to interpret site/samples.
-#'   A much more complete discussion of the implications of scaling (and intepretation of the ordination results) is provided in Legendre and Legendre (1998, p. 403-404, 585-587).
+#' Species scaling (1) results in a distance biplot. The distance biplot is intended to enable the user to interpret the relationships between sites/samples. Site scaling (2) results in a correlation biplot. The correlation biplot enables the user to interpret the correlation between descriptors (species) within the ordination. Positions of sites/samples are not approximations of thier true locations; use species scaling (1) to interpret site/samples. A complete discussion of the implications of scaling (and intepretation of the ordination results) is provided in Legendre and Legendre (1998, p. 403-404, 585-587).
 #' }
 #'
 #' @return A ggplot object.
 #'
 #' @references
-#' Legendre, P. and Legendre, L. (1998) Numerical Ecology. 2nd English ed. Elsevier.
+#' Legendre, P. and Legendre, L. (1998) Numerical Ecology. 2nd English ed. Elsevier.  
+#' Callahan BJ, Sankaran K, Fukuyama JA et al. Bioconductor Workflow for Microbiome Data Analysis: from raw reads to community analyses [version 2; referees: 3 approved]. F1000Research 2016, 5:1492 (doi: 10.12688/f1000research.8986.2)  
 #'
-#' @seealso \code{\link[phyloseq]{ordinate}} \code{\link[vegan]{cca}} \code{\link[vegan]{rda}} \code{\link[vegan]{scores}}
+#' @seealso \code{\link[phyloseq]{ordinate}} \code{\link[phyloseq]{plot_ordination}} \code{\link[vegan]{cca}} \code{\link[vegan]{rda}} \code{\link[vegan]{scores}}
 #'
 #' @examples
 #' \dontrun{
-#' constord(PS,~ SL_NPOC + SL_NO3 + SL_NH4,
-#' facets=~reactor.cat,tax_level='Class',scaling=2,method='RDA')
+#' library(theseus)
+#' data('WWTP_Impact')
+#' p.co <- constord(PS=WWTP_Impact, formula=~ log_NO3N + log_PO4, method='RDA', facets=Position~Location, scaling=2)
+#' p.co
 #' }
 #'
 #' @export

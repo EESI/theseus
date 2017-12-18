@@ -1,6 +1,6 @@
 #' converts the otu_table slot of a phyloseq object to a vegan-compatible matrix
 #'
-#' physeq2veg_otu is a helper function intended to convert the species/taxa count slot of a phyloseq object to a vegan-friendly matrix.
+#' physeq2veg_otu is a helper function intended to convert the species/taxa count slot of a phyloseq object to a vegan-friendly matrix. This function ensures that sites/samples are rows and species are columns. 
 #'
 #' @param PS (required) a phyloseq object
 #'
@@ -10,15 +10,24 @@
 #'
 #' @examples
 #' \dontrun{
+#' library(theseus) 
 #' library(phyloseq)
-#' data("GlobalPatterns")
-#' # inspect otu_table()
+#' data(WWTP_Impact, package='theseus')
+#' dim(otu_table(WWTP_Impact))
+#' taxa_are_rows(WWTP_Impact)
+#' otu <- pstoveg_otu(WWTP_Impact)
+#' dim(otu)
+#' 
+#' data(GlobalPatterns, package='phyloseq')
 #' dim(otu_table(GlobalPatterns))
-#' str(otu_table(GlobalPatterns))
 #' taxa_are_rows(GlobalPatterns)
-#' gp.otu <- physeq2veg_otu(GlobalPatterns)
-#' dim(gp.otu)
-#' str(gp.otu)
+#' otu.gp <-pstoveg_otu(GlobalPatterns)
+#' dim(otu.gp)
+#' 
+#' # move transformed OTU table back to phyloseq
+#' wwtp <- WWTP_Impact  
+#' otu.ra <- vegan::decostand(otu, method='total')
+#' otu_table(wwtp) <- otu_table(otu.ra, taxa_are_rows = taxa_are_rows(WWTP_Impact))
 #' }
 #'
 #' @export
