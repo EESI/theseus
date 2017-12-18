@@ -37,7 +37,7 @@ Low count taxa are often filtered from OTU tables to reduce possible
   carried out to ensure that appropriate thresholds for prevalence (number of
   samples a taxa was observed in) and abundance (the total number of times a
   taxa was observed) are being selected. Function 'prev' plots each taxa
-  according to thier prevalance and abundance within the dataset.
+  according to thier prevalence and abundance within the dataset.
 }
 \examples{
 \dontrun{

@@ -24,13 +24,13 @@ contain a 'log2FoldChange' vector/column. Row names must be a subset (but
 not necessarily a proper subset) of taxa_names(PS). See Details for more
 information.}
 
-\item{comp2}{(required) Second comparision (hence 'comp2') object. Refer to
+\item{comp2}{(required) Second comparison (hence 'comp2') object. Refer to
 documentation for 'comp1' for remaining details.}
 
-\item{comp1lab}{Labels for comparision 1. Defaults to c('Decreased Comp1',
+\item{comp1lab}{Labels for comparison 1. Defaults to c('Decreased Comp1',
 'No Change Comp1','Increased Comp1').}
 
-\item{comp2lab}{Labels for comparision 2. Defaults to c('Decreased Comp2',
+\item{comp2lab}{Labels for comparison 2. Defaults to c('Decreased Comp2',
 'No Change Comp2','Increased Comp2').}
 
 \item{justdata}{Return only the data table (no plot). Defaults to FALSE.}
@@ -43,15 +43,15 @@ A ggplot object.
 }
 \description{
 This function plots the relative abundance of taxa within a phyloseq
-object 'PS' according to thier pre-deterimined cohort memberships.
+object 'PS' according to thier pre-determined cohort memberships.
 See Details for more information.
 }
 \details{
 \subsection{General}{
-The results from a single pairwise comparision, such as pre- and
+The results from a single pairwise comparison, such as pre- and
   post-treatment, carried out with the DESeq2 package can be plotted or read
   and interpreted in tabular form with relative ease. When two pairwise
-  comparisions are being performed, interpreting the results becomes more
+  comparisons are being performed, interpreting the results becomes more
   difficult. This function is intended to assist with interpreting the
   results from multiple differential abundance analyses carried out with the
   DESeq2 r-package. This function takes a phyloseq object ('PS') and two
@@ -71,7 +71,7 @@ with DESeq2 must be carried out, and the non-significant taxa should be
 removed from the 'comp1' and 'comp2' objects before using this function.
 Using the log2FoldChange columns in 'comp1' and 'comp2' this function
 identifies which taxa decrease, do not change, or increase over course of
-both comparisions. Because there are three options for both comparisions
+both comparisons. Because there are three options for both comparisons
 there are 3^2=9 possible combinations, or cohorts, which an OTU may fall
 into. These cohort assignments are used when plotting the relative abundance
 plot.

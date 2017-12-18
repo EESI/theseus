@@ -40,7 +40,7 @@ This function can be used for both regularly and irregularly spaced data.
 \itemize{
   \item 'linear' uses the \code{\link[akima]{interp}} function in the akima R
     package (Akima and Gebhardt, 2016) to carry out bivariate linear
-    intrpolation.
+    interpolation.
   \item 'spline' also uses the \code{\link[akima]{interp}} function in the
     akima R package (Akima and Gebhardt, 2016), but the 'linear' argument
     passed to \code{\link[akima]{interp}} is set to 'FALSE', resulting in

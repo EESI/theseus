@@ -21,7 +21,7 @@ files to be used for analysis}
 \item{percentile}{The percentile to be targeted . Defaults to .25 (i.e. the
 first quartile).}
 
-\item{amp_length}{Intra-primer amplicon length. Calculated destance in
+\item{amp_length}{Intra-primer amplicon length. Calculated distance in
 base-pairs between primers. Used to determine region of no overlap. Both
 'amp_length' and 'min_overlap' must be provided for these calculations.}
 

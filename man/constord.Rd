@@ -56,7 +56,7 @@ The current implementation of this function displays the first two
   feature for a future release.
 }
 
-\subsection{Comparision with phyloseq::plot_ordination}{
+\subsection{Comparison with phyloseq::plot_ordination}{
 There are several differences between 'constord' and
   \code{\link[phyloseq]{plot_ordination}}, and they each have their own strengths. The highlights of 'constord' are:
 \itemize{

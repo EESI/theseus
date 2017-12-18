@@ -14,7 +14,7 @@ NULL
 #'   files to be used for analysis
 #' @param percentile The percentile to be targeted . Defaults to .25 (i.e. the
 #'   first quartile).
-#' @param amp_length Intra-primer amplicon length. Calculated destance in
+#' @param amp_length Intra-primer amplicon length. Calculated distance in
 #'   base-pairs between primers. Used to determine region of no overlap. Both
 #'   'amp_length' and 'min_overlap' must be provided for these calculations.
 #' @param min_overlap The minimum amount of overlap between the two reads. Used
