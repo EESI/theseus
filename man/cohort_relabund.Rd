@@ -56,7 +56,7 @@ The results from a single pairwise comparison, such as pre- and
   results from multiple differential abundance analyses carried out with the
   DESeq2 r-package. This function takes a phyloseq object ('PS') and two
   'DESeqResults' objects ('comp1', 'comp2') and plots the relative abundance
-  of taxa within 'PS', partitioning the taxa according to thier membership
+  of taxa within 'PS', partitioning the taxa according to their membership
   to one the 9 possible cohort combinations determined by their values
   specified within 'comp1' and 'comp2'.
 }
