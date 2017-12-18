@@ -4,7 +4,7 @@ Title: Analysis and Visualization Tools for Microbial Community Data
 Version: 0.1.0
 Authors@R: c(
     person("Jacob", "Price", email = "jrp355@drexel.edu", role = c("cre","aut")),
-    person("Stephen", "Woloszynek", email = "sw424@drexel.edu", role = c("aut")),
+    person("Stephen", "Woloszynek", email = "sw424@drexel.edu", role = c("aut"))
     )
 Description: An approach to the visualization, analysis, and interpretation of 
   (microbial) community composition data, especially those originating from 
