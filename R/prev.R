@@ -2,9 +2,9 @@
 #' @importFrom phyloseq otu_table sample_data tax_table
 NULL
 
-#' Create prevalance vs abundance plot
+#' Create prevalence vs abundance plot
 #'
-#' Function 'prev' (prevalence plot) tabulates the prevalance and abundance of
+#' Function 'prev' (prevalence plot) tabulates the prevalence and abundance of
 #' each taxa in a phyloseq object and plots the results as a ggplot object.
 #' This may assist the user in determining what filtering and preprocessing
 #' steps should be taken regarding the removal of low count taxa.

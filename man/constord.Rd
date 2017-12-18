@@ -85,7 +85,7 @@ Species scaling (1) results in a distance biplot. The distance biplot is
   descriptors (species) within the ordination. Positions of sites/samples are
   not approximations of thier true locations; use species scaling (1) to
   interpret site/samples. A complete discussion of the implications of
-  scaling (and intepretation of the ordination results) is provided in
+  scaling (and interpretation of the ordination results) is provided in
   Legendre and Legendre (1998, p. 403-404, 585-587).
 }
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/prev.R
 \name{prev}
 \alias{prev}
-\title{Create prevalance vs abundance plot}
+\title{Create prevalence vs abundance plot}
 \usage{
 prev(PS, taxon, n_taxa = 10, abund_threshold = 3,
   prev_threshold = ceiling(0.05 * phyloseq::nsamples(PS)))
@@ -26,7 +26,7 @@ rounded up to the nearest integer.}
 A ggplot object.
 }
 \description{
-Function 'prev' (prevalence plot) tabulates the prevalance and abundance of
+Function 'prev' (prevalence plot) tabulates the prevalence and abundance of
 each taxa in a phyloseq object and plots the results as a ggplot object.
 This may assist the user in determining what filtering and preprocessing
 steps should be taken regarding the removal of low count taxa.

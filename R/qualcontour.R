@@ -25,7 +25,7 @@ NULL
 #' @param q A numeric vector designating Phred quality scores to be represented
 #'   on the plot. Defaults to 25, 30, and 35.
 #' @param bins Integer designating the number of bins each read should be
-#'   seperated into. For example, visualizing a 250 bp read with 50 bins would
+#'   separated into. For example, visualizing a 250 bp read with 50 bins would
 #'   imply that each bin represents 5 cycles/bp. Increasing the number of bins
 #'   improves granularity at the cost of memory and processing speed. Defaults
 #'   to 50.
