@@ -25,21 +25,3 @@ test_that('constord returns ggplot for various params.',{
   expect_is(x,'ggplot')
 
 })
-
-test_that('contplot returns ggplot for various params.',{
-
-  X <- data.frame(x=WWTP_Impact@sam_data@.Data[[75]],
-                  y=WWTP_Impact@sam_data@.Data[[76]],
-                  z=WWTP_Impact@sam_data@.Data[[77]])
-
-  x <- contplot('x','y','z',X,method='linear',removeMissing=FALSE)
-  expect_is(x,'ggplot')
-
-  x <- contplot('x','y','z',X,method='spline',removeMissing=FALSE)
-  expect_is(x,'ggplot')
-
-  x <- contplot('x','y','z',X,method='loess',removeMissing=FALSE)
-  expect_is(x,'ggplot')
-
-
-})

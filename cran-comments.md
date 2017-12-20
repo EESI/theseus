@@ -3,6 +3,7 @@ This is a submission (first release)
 ---
 
 ## Test environments
+
 * Mac (travis-ci): R-release 3.4.3 [12/18/17]
 * Mac OS X El Capitan (local machine): R 3.4.0 [12.18.17]
 * Linux (travis-ci): R-release 3.4.2 [12/18/17]
@@ -19,16 +20,16 @@ Win:
 
 0 errors | 0 warnings | 0 notes
 
-    
 Dev versions:
 
 * Seemingly have issues with igraph and phyloseq installations. Both of these
   dependencies are well maintained and shouldn't be an issue when new R versions
   release.
   
-## Notes
+## Responses to Previous Submission [12/18/17]
 
-* Removed Akima depends due to licensing issues
+* Removed Akima depends due to licensing issues; it's not longer used in the pkg
+* Vignette takes ~15s to knit; tests take ~47s to complete
 
 ## License 
 
