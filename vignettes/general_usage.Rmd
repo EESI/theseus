@@ -16,7 +16,7 @@ knitr::opts_chunk$set(collapse=TRUE,comment='#>')
 
 We will be using the dataset **WWTP_Impact** from [Price et. al. (2017)](http://www.sciencedirect.com/science/article/pii/S0048969717325111) to illustrate the basic functionality within the *theseus* package. To get started, let's load *theseus*, *phyloseq*, and *ggplot2* and get the WWTP_Impact dataset.  
 
-```{r}
+```{r,eval=FALSE}
 library(theseus)
 library(phyloseq)
 library(ggplot2)
@@ -65,7 +65,7 @@ p.prev
 
 *vegan* wants OTU tables to have taxa as columns and samples/sites as rows, while *phyloseq* can handle either orientation. *psotuveg_otu** will test to see if taxa are rows and carry out the transposition if required.   
 
-```{r}
+```{r,eval=FALSE}
 dim(otu_table(WWTP_Impact))
 taxa_are_rows(WWTP_Impact)
 otu <- pstoveg_otu(WWTP_Impact)
@@ -80,7 +80,7 @@ dim(otu.gp)
 
 Extracting sample_data() from a phyloseq object is just as easy.  
 
-```{r}
+```{r,eval=FALSE}
 dim(sample_data(WWTP_Impact))
 sampdat <- pstoveg_sd(WWTP_Impact)
 dim(sampdat)
@@ -93,7 +93,7 @@ dim(sampdat.gp)
 
 If *vegan* is used to carry out OTU transformations, users can easily pull the transformed data back into the phyloseq object. 
 
-```{r}
+```{r,eval=FALSE}
 wwtp <- WWTP_Impact  
 otu.ra <- vegan::decostand(otu, method='total')
 otu_table(wwtp) <- otu_table(otu.ra, taxa_are_rows = taxa_are_rows(WWTP_Impact))
@@ -101,7 +101,7 @@ otu_table(wwtp) <- otu_table(otu.ra, taxa_are_rows = taxa_are_rows(WWTP_Impact))
 
 The same can be said for any altered or added values of the sample data.  
 
-```{r}
+```{r,eval=FALSE}
 sampdat.altered <- sampdat
 sampdat.altered$TotDisP_PercentMax <- vegan::decostand(sampdat$TotDisP, method='max')
 sample_data(wwtp) <- as.data.frame(sampdat.altered)
