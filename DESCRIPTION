@@ -14,8 +14,8 @@ Description: An approach to the visualization, analysis, and interpretation of
   selecting read trimming by quality scores and preprocessing/denoising of 
   datasets are also provided. 
 License: MIT + file LICENSE
-URL: http://github.com/sw1/theseus
-BugReports: http://github.com/sw1/theseus/issues
+URL: http://github.com/EESI/theseus
+BugReports: http://github.com/EESI/theseus/issues
 Encoding: UTF-8
 LazyData: TRUE
 Depends:
