@@ -109,7 +109,7 @@ sample_data(wwtp) <- as.data.frame(sampdat.altered)
 
 ## envtoverlay - Fitting environmental vectors and surfaces into ordination space  
 
-The calculations for unconstrained ordination does not take environmental or sample metadata into account. The *vegan* functions **envfit** and **ordisurf** attempt to fit environmental descriptors into ordination space and display them as vectors and surfaces respectively. Gavin Simpson, one of vegan's authors, has a great [blog](http://www.fromthebottomoftheheap.net/2011/06/10/what-is-ordisurf-doing/) explaining how these functions work and are interpreted. Jari Oksanen has provided several vignettes on [vegan's homepage ](https://cran.r-project.org/web/packages/vegan/index.html) that also discuss the application of these functions. 
+The calculations for unconstrained ordination does not take environmental or sample metadata into account. The *vegan* functions **envfit** and **ordisurf** attempt to fit environmental descriptors into ordination space and display them as vectors and surfaces respectively. Gavin Simpson, one of vegan's authors, has a great [blog](http://www.fromthebottomoftheheap.net/2011/06/10/what-is-ordisurf-doing/) explaining how these functions work and are interpreted. Jari Oksanen has provided several vignettes on [vegan's homepage ](https://cran.r-project.org/package=vegan) that also discuss the application of these functions. 
 
 Function **envtoverlay** (environmental variable overlay) takes advantage of ggplot2 to make these plots (usually generated in base::plot) a little prettier and user friendly, particularly when the user would like to present the results as a faceted plot. 
 
