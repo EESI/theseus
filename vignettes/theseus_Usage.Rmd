@@ -20,8 +20,8 @@ We will be using the dataset **WWTP_Impact** from [Price et. al. (2017)](http://
 library(theseus)
 library(phyloseq)
 library(ggplot2)
+
 data('WWTP_Impact')
-WWTP_Impact
 ```
 
 **WWTP_Impact** is a phyloseq object containing 16S rDNA amplicon sequencing data from samples collected at 6 sites on 2 days (12 total samples) along Wissahickon Creek and Sandy Run in southeastern Pennsylvania, USA. Sequencing data was processed as described in Price et. al. (2016), and combined with chemical data to create a phyloseq object. The raw data and scripts used to generate this phyloseq object (as well as the phyloseq object itself) can be obtained from the author's [GitHub repository](https://github.com/JacobRPrice/WWTP_Impact_on_Stream).  
@@ -32,17 +32,16 @@ Trimming and quality filtering is one of the first steps taken when analyzing am
 
 **qualcontour**'s (quality contour) two required arguments are character vectors of the file paths for forward (**f_path**) and reverse (**r_path**) reads. **qualcontour** tabulates the distribution of quality scores at each read cycle for the forward and reverse reads independently and then averages (arithmetic mean) the quality scores for each (forward/reverse) cycle combination. These values are then plotted as a *ggplot2* object. 
 
-```{r}
-fns <- sort(list.files(file.path(system.file(package='theseus'), '/testdata/'), full.names=TRUE))
-fns
+```{r,eval=FALSE}
+fns <- sort(list.files(file.path(system.file(package='theseus'), 'testdata'), full.names=TRUE))
 f_path <- fns[grepl('R1.fastq.gz', fns)] 
 r_path <- fns[grepl('R2.fastq.gz', fns)]
 p.qc <- qualcontour(f_path, r_path, n_samples=2, verbose=TRUE, percentile=.25, nc=1)
-p.qc
+
 p.qc + geom_hline(yintercept=175) + geom_vline(xintercept=275)
 ```
 
-![](p.qc.png)
+![](p.qc.png){width=80%}
 
 Using this visualization, we can see that reverse read quality drops earlier, and more gradually when compared with the forward read quality. Selecting the appropriate trimming location can be tricky and there are multiple ways to approach the challenge. Two places (or rules) to start with are:  
 * trimming where a severe/sudden drop in read quality occurs, such as at ~275 for the forward read  
@@ -52,12 +51,12 @@ Using this visualization, we can see that reverse read quality drops earlier, an
 
 Low count taxa are often filtered from OTU tables to reduce possible error or noise. Examination of the raw (unfiltered) OTU table should be carried out to ensure that appropriate thresholds for prevalence (number of samples a taxa was observed in) and abundance (the total number of times a taxa was observed) are being selected. Function **prev** (prevalance) plots each taxa according to thier prevalance and abundance within the dataset. 
 
-```{r}
+```{r,eval=FALSE}
 p.prev <- prev(WWTP_Impact, taxon="Phylum", n_taxa=10)
 p.prev
 ```
 
-![](p.prev.png)
+![](p.prev.png){width=80%}
 
 
 ## pstoveg_otu and pstoveg_sd: converting objects between *phyloseq* and *vegan*  
@@ -114,22 +113,20 @@ The calculations for unconstrained ordination does not take environmental or sam
 
 Function **envtoverlay** (environmental variable overlay) takes advantage of ggplot2 to make these plots (usually generated in base::plot) a little prettier and user friendly, particularly when the user would like to present the results as a faceted plot. 
 
-```{r}
+```{r,eval=FALSE}
 cv <- c('log_NO3N', 'log_PO4')
-p.eo <- envtoverlay(WWTP_Impact, covariates=cv)
-p.eo
+envtoverlay(WWTP_Impact, covariates=cv)
 ```
-![](p.eo.png)
+![](p.eo.png){width=80%}
 
 ## constord
 
 Function **constord** (constrained ordination) carries out constrained ordination on a phyloseq object and plots the results. Constrained correspondence analysis ('CCA') and redundancy analysis ('RDA') are the two methods currently implemented within this function. 
 
-```{r}
-p.co <- constord(PS=WWTP_Impact, formula=~ log_NO3N + log_PO4, method='RDA', facets=Position~Location, scaling=2)
-p.co  
+```{r,eval=FALSE}
+constord(PS=WWTP_Impact, formula=~ log_NO3N + log_PO4, method='RDA', facets=Position~Location, scaling=2)
 ```
-![](p.co.png)
+![](p.co.png){width=80%}
 
 
 There are several differences between **constord** and **phyloseq::plot_ordination**, and they each have their own strengths. The highlights of **constord** are:  
@@ -141,30 +138,10 @@ Note:
 * The numbering approach is consistent with *vegan* (*theseus* and *phyloseq* rely on vegan::scores to get the scores themselves).  
 * The options for this function and it's plot are evolving and we may include additional ordination methods and plotting features later on.  
 
-## contplot - create color/contour plots of 3-dimensional data
-
-Function **contplot** (contour plot) fits a surface to 3-dimensional data and presents the fitted surface as a 2-dimensional color/contour plot. 'linear', 'spline', and 'loess' fitting methods are currently supported for this function.  
-
-```{r}
-data(akima, package='akima')
-str(akima)
-dat <- data.frame(cbind(a=akima$x, b=akima$y, c=akima$z))
-p.cp.l <- contplot(x='a', y='b', z='c', data=dat, method='linear')
-p.cp.s <- contplot(x='a', y='b', z='c', data=dat, method='spline')
-p.cp.loess <- contplot(x='a', y='b', z='c', data=dat, method='loess')
-gridExtra::grid.arrange(
-  nrow=3,
-  p.cp.l + ggtitle('contplot w linear surface fit'),
-  p.cp.s + ggtitle('contplot w spline surface fit'),
-  p.cp.loess + ggtitle('contplot w loess surface fit'))
-```
-
-![](p.cp.png)
-
 ## cohort_relabund - Cohort Relative Abundance Plots
 
 
-```{r}
+```{r,eval=FALSE}
 data('sigtab')
 data('sigtab.2vs3')
 cohort_relabund(
@@ -181,4 +158,4 @@ cohort_relabund(
   theme(legend.text=element_text(size=5))
 ```
 
-![](p.cra.png)
+![](p.cra.png){width=80%}

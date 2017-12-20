@@ -17,19 +17,18 @@ Mac, Linux:
 
 Win:
 
-0 errors | 0 warnings | 1 notes
+0 errors | 0 warnings | 0 notes
 
-* Package has a FOSS license but eventually depends on the following package 
-  which restricts use:
-    + akima
-* Response: akima has an ACM license which grants noncommercial use:
-    + https://www.acm.org/publications/policies/software-copyright-notice
     
-Dev version:
+Dev versions:
 
 * Seemingly have issues with igraph and phyloseq installations. Both of these
   dependencies are well maintained and shouldn't be an issue when new R versions
   release.
+  
+## Notes
+
+* Removed Akima depends due to licensing issues
 
 ## License 
 

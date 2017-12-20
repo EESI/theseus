@@ -21,7 +21,6 @@ LazyData: TRUE
 Depends:
     R (>= 3.3.0)
 Imports:
-    akima (>= 0.6.2),
     dplyr,
     ggplot2 (>= 2.2.1),
     gridExtra,
