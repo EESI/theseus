@@ -1,13 +1,14 @@
-citHeader('To cite theseus for publications, see https://github.com/sw1/theseus for most recent information; otherwise, please use:')
+citHeader('To cite theseus for publications, see https://github.com/EESI/theseus for most recent information; otherwise, please use:')
 
 citEntry(
-  entry = 'Manual',
-  title = 'theseus',
+  entry = 'article',
+  title = 'theseus - An R package for the analysis and visualization of microbial community data',
   author = personList(as.person('Jacob R. Price'),
                       as.person('Stephen Woloszynek'),
                       as.person('Gail Rosen'),
                       as.person('Christopher M. Sales')),
-  year = '2017',
-  url = 'https://github.com/sw1/theseus',
-  textVersion = paste('theseus. 2017. Price, J., Woloszynek, S., Rosen, G., and C. Sales')
+  year = '2018',
+  journal = 'bioRxiv',
+  url = 'https://doi.org/10.1101/295675',
+  textVersion = paste('theseus - An R package for the analysis and visualization of microbial community data. 2017. Price, J., Woloszynek, S., Rosen, G., and C. Sales')
 )
