@@ -1,7 +1,7 @@
 Package: theseus
 Type: Package
 Title: Analysis and Visualization Tools for Microbial Community Data
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: c(
     person("Jacob", "Price", email = "jacobrpricephd@gmail.com", role = c("cre","aut")),
     person("Stephen", "Woloszynek", email = "sw424@drexel.edu", role = c("aut")),
