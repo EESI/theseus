@@ -23,7 +23,7 @@ obtained from the author's GitHub repository (see url below).
 }
 \references{
 Price, J. R., Ledford, S. H., Ryan, M. O., Toran, L., Sales,
-   C. M. (2017). Wastewater treatment plant effluent introduces recoverable
+   C. M. (2018). Wastewater treatment plant effluent introduces recoverable
    shifts in microbial community composition in receiving streams. Sci. Total
    Environ. doi:10.1016/j.scitotenv.2017.09.162.
 }

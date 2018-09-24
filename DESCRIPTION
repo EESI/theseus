@@ -1,10 +1,12 @@
 Package: theseus
 Type: Package
 Title: Analysis and Visualization Tools for Microbial Community Data
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: c(
-    person("Jacob", "Price", email = "jrp355@drexel.edu", role = c("aut")),
-    person("Stephen", "Woloszynek", email = "sw424@drexel.edu", role = c("cre","aut"))
+    person("Jacob", "Price", email = "jacobrpricephd@gmail.com", role = c("cre","aut")),
+    person("Stephen", "Woloszynek", email = "sw424@drexel.edu", role = c("aut")),
+    person("Gail", "Rosen", email = "glr26@drexel.edu", role = c("aut")),
+    person("Christopher", "Sales", email = "chris.sales@drexel.edu", role = c("aut"))
     )
 Description: An approach to the visualization, analysis, and interpretation of 
   (microbial) community composition data, especially those originating from 
@@ -29,7 +31,6 @@ Imports:
     phyloseq (>= 1.20.0),
     ShortRead (>= 1.34.0),
     splancs,
-    tidyverse (>= 1.1.1),
     tidyr,
     vegan (>= 2.3.5),
     viridis (>= 0.4.0)
@@ -39,4 +40,4 @@ Suggests:
     rmarkdown,
     testthat
 VignetteBuilder: knitr
-RoxygenNote: 6.0.1
+RoxygenNote: 6.0.1.9000
